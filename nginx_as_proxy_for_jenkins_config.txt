@@ -1,0 +1,28 @@
+step-1:
+# unlink /etc/nginx/sites-enabled/default
+
+step-2:
+# nano /etc/nginx/conf.d/jenkins.conf
+
+step-3:
+put this code in 'jenkins.conf' file
+
+upstream jenkins {
+        server 127.0.0.1:8080;
+}
+
+server {
+        listen 80 default_server;
+        listen [::]: 80 default_server;
+        location / {
+                proxy_pass http://jenkins;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+        }
+}
+
+
+step-4:
+# nginx -t
+
+for checking the 'jenkins.conf' file
